@@ -5,23 +5,25 @@ import Item from "./Item";
 
 export default class List extends Component {
   renderUsers() {
-    const { items } = this.props
+    const { items, icon } = this.props
 
     return items.map( (item) => {
       return (
         <Item
           key={ item.id }
+          icon= {icon}
           name={ item.username }/>
       )
     })
   }
 
   renderChannels(){ 
-    const {items} = this.props
+    const {items, icon} = this.props
     return items.map( (item) => {
       return (
         <Item
           key={ item.id }
+          icon={icon}
           name={ item.name }/>
       )
     })

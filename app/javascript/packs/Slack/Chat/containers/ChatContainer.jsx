@@ -30,9 +30,9 @@ export default class ChatContainer extends Component {
       onSuccess: (response) => {
         this.setState({
           channels: {
-            public : response.data.filter( f => f.type == "PublicChannel" ),
-            private : response.data.filter( f => f.type == "PrivateChannel" ),
-            group : response.data.filter( f => f.type == "GroupChannel" )
+            public : response.data.filter( f => f.type === "PublicChannel" ),
+            private : response.data.filter( f => f.type === "PrivateChannel" ),
+            group : response.data.filter( f => f.type === "GroupChannel" )
           }
         })
       }
@@ -45,15 +45,16 @@ export default class ChatContainer extends Component {
     return (
       <div>
         <aside>
-
           <List 
             type='public'
             title='Public Channels'
+            icon='ion-pound'
             items={ channels.public }/>
 
           <List 
             type='private'
             title='Private Channels'
+            icon='ion-locked'
             items={ channels.private }/>
           <List 
             type='private'
@@ -64,7 +65,6 @@ export default class ChatContainer extends Component {
             type='direct'
             title='Direct Messages'
             items={ users }/>
-
         </aside>
         <article>
         </article>

@@ -3,9 +3,10 @@ import PropTypes from "prop-types"
 
 export default class Item extends Component {
   render() {
+    const {icon ,name} = this.props
     return (
-      <li>
-        { this.props.name }
+      <li className="list-unstyled">
+        <i className={icon}></i> { name }
       </li>
     )
   }
