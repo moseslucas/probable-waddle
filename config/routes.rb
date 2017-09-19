@@ -5,7 +5,13 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users
       resources :messages
-      resources :channels
+      resources :channels do 
+        collection do 
+          get :public
+          get :private
+          get :group
+        end
+      end
     end
   end
 end

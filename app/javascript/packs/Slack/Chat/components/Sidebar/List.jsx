@@ -16,14 +16,35 @@ export default class List extends Component {
     })
   }
 
+  renderChannels(){ 
+    const {items} = this.props
+    return items.map( (item) => {
+      return (
+        <Item
+          key={ item.id }
+          name={ item.name }/>
+      )
+    })
+  }
+
+  renderMain(){ 
+    const { type,items } = this.props
+    switch(type){ 
+      case 'direct':
+        return this.renderUsers()
+      break
+      default:
+        return this.renderChannels()
+    }
+  }
+
   render() {
-    const { items } = this.props
 
     return (
       <div>
-        Direct Message
+        {this.props.title}
         <ul>
-          { this.renderUsers() }
+          { this.renderMain() }
         </ul>
       </div>
     )

@@ -5,11 +5,19 @@ import Message from "../components/Message/Message"
 import MessageInput from "../components/Message/MessageInput"
  
 import UsersAPI from "../services/UsersAPI"
+import ChannelsAPI from "../services/ChannelsAPI"
 
 export default class ChatContainer extends Component {
   constructor() {
     super()
-    this.state = { users: [] }
+    this.state = { 
+      users: [] ,
+      channels: { 
+        public: [],
+        private: [],
+        group: []
+      }
+    }
   }
 
   componentWillMount() {
@@ -18,17 +26,45 @@ export default class ChatContainer extends Component {
         this.setState({users: response.data})
       }
     })
+    ChannelsAPI.fetchAll({
+      onSuccess: (response) => {
+        this.setState({
+          channels: {
+            public : response.data.filter( f => f.type == "PublicChannel" ),
+            private : response.data.filter( f => f.type == "PrivateChannel" ),
+            group : response.data.filter( f => f.type == "GroupChannel" )
+          }
+        })
+      }
+    })
   }
 
   render() {
-    const { users } = this.state
+    const { users, channels } = this.state
 
     return (
       <div>
         <aside>
+
           <List 
-            icon={ "circle" }
+            type='public'
+            title='Public Channels'
+            items={ channels.public }/>
+
+          <List 
+            type='private'
+            title='Private Channels'
+            items={ channels.private }/>
+          <List 
+            type='private'
+            title='Private Channels'
+            items={ channels.group }/>
+
+          <List 
+            type='direct'
+            title='Direct Messages'
             items={ users }/>
+
         </aside>
         <article>
         </article>
