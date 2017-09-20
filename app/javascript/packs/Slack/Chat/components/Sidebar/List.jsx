@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import Item from "./Item";
 
 export default class List extends Component {
-  renderUsers() {
+  renderItems() {
     const { items, icon } = this.props
 
     return items.map( (item) => {
@@ -12,33 +12,11 @@ export default class List extends Component {
         <Item
           key={ item.id }
           icon= {icon}
-          name={ item.username }/>
+          name={ item.username || item.name }/>
       )
     })
   }
 
-  renderChannels(){ 
-    const {items, icon} = this.props
-    return items.map( (item) => {
-      return (
-        <Item
-          key={ item.id }
-          icon={icon}
-          name={ item.name }/>
-      )
-    })
-  }
-
-  renderMain(){ 
-    const { type,items } = this.props
-    switch(type){ 
-      case 'direct':
-        return this.renderUsers()
-      break
-      default:
-        return this.renderChannels()
-    }
-  }
 
   render() {
 
@@ -46,7 +24,7 @@ export default class List extends Component {
       <div>
         {this.props.title}
         <ul>
-          { this.renderMain() }
+          { this.renderItems() }
         </ul>
       </div>
     )

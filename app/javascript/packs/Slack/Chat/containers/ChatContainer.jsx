@@ -58,7 +58,7 @@ export default class ChatContainer extends Component {
             items={ channels.private }/>
           <List 
             type='private'
-            title='Private Channels'
+            title='Group Channels'
             items={ channels.group }/>
 
           <List 
