@@ -12,28 +12,18 @@ export default class ChatContainer extends Component {
     super()
     this.state = { 
       users: [] ,
-      channels: { 
-        public: [],
-        private: [],
-        group: []
-      }
+      channels: []
     }
   }
 
-  componentWillMount() {
-    UsersAPI.fetchAll({
-      onSuccess: (response) => {
+  componentWillMount() { UsersAPI.fetchAll({ onSuccess: (response) => {
         this.setState({users: response.data})
       }
     })
     ChannelsAPI.fetchAll({
       onSuccess: (response) => {
         this.setState({
-          channels: {
-            public : response.data.filter( f => f.type === "PublicChannel" ),
-            private : response.data.filter( f => f.type === "PrivateChannel" ),
-            group : response.data.filter( f => f.type === "GroupChannel" )
-          }
+          channels: response.data
         })
       }
     })
@@ -41,7 +31,12 @@ export default class ChatContainer extends Component {
 
   render() {
     const { users, channels } = this.state
+    let channelType = { 
+      public: channels.filter( f => f.type === 'PublicChannel' ),
+      private: channels.filter( f => f.type === 'PrivateChannel' ),
+      group: channels.filter( f => f.type === 'GroupChannel' )
 
+    }
     return (
       <div>
         <aside>
@@ -49,17 +44,17 @@ export default class ChatContainer extends Component {
             type='public'
             title='Public Channels'
             icon='ion-pound'
-            items={ channels.public }/>
+            items={ channelType.public }/>
 
           <List 
             type='private'
             title='Private Channels'
             icon='ion-locked'
-            items={ channels.private }/>
+            items={ channelType.private }/>
           <List 
             type='private'
             title='Group Channels'
-            items={ channels.group }/>
+            items={ channelType.group }/>
 
           <List 
             type='direct'
