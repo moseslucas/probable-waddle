@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 
 export default class ChannelForm extends Component {
+
   handleSubmit(evt, { nameRef, typeRef, userIdsRef } = params) {
     const { onCreateChannel } = this.props
     evt.preventDefault()     
@@ -73,11 +74,11 @@ export default class ChannelForm extends Component {
             Create
           </button>
 
-          <button 
-            type="button" 
-            onClick={ () => { onCancelCreateChannel() } }>
-            Cancel
-          </button>
+          {/* <button  */}
+          {/*   type="button"  */}
+          {/*   onClick={ () => { onCancelCreateChannel() } }> */}
+          {/*   Cancel */}
+          {/* </button> */}
         </div>
       </form>
     )
