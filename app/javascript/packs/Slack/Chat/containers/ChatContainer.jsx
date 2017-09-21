@@ -20,7 +20,7 @@ export default class ChatContainer extends Component {
     super()
     this.state = { 
       users: [], 
-      current_channel: { 
+      currentChannel: { 
         id: '',
         type: '',
         messages: [],
@@ -74,7 +74,7 @@ export default class ChatContainer extends Component {
   selectChannel(params){ 
     MessagesAPI.fetchAll({ 
       onSuccess: (response) => { 
-        this.setState({ current_channel: { 
+        this.setState({ currentChannel: { 
           id: params.id,
           type: params.type,
           messages: response.data
@@ -85,7 +85,7 @@ export default class ChatContainer extends Component {
   }
 
   render() {
-    const { users, channels, createPanel } = this.state
+    const { users, channels, createPanel, currentChannel } = this.state
     const publicChannels = channels.filter( (member) => { return member.type === "PublicChannel" } )
     const privateChannels = channels.filter( (member) => { return member.type === "PrivateChannel" } )
     const groupChannels = channels.filter( (member) => { return member.type === "GroupChannel" } )
@@ -130,9 +130,8 @@ export default class ChatContainer extends Component {
               </div>
           </Sidebar>
           <MessagePanel>
-
             <TopNav/>
-            <MessageList/>
+            <MessageList currentChannel={currentChannel}/>
             <MessageInput/>
           </MessagePanel>
         </Wrapper>
