@@ -4,7 +4,13 @@ import PropTypes from "prop-types"
 class MessageInput extends Component{ 
   willSendMessage(){ 
     const {sendMessage} = this.props
-    sendMessage(this.refs.message_input.value)
+    const message = this.refs.message_input.value
+    this.clear()
+    sendMessage(message)
+  }
+
+  clear(){ 
+    this.refs.message_input.value = ''
   }
 
   render(){ 
