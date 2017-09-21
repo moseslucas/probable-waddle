@@ -11,7 +11,7 @@ class Api::V1::MessagesController < ApiController
   end
 
   def create
-    @message = Message.create(channel_params)
+    @message = Message.create(message_params)
 
     if @message.save
       render json: @message, serializer: Api::V1::MessageSerializer
@@ -32,7 +32,7 @@ class Api::V1::MessagesController < ApiController
 
   private
 
-  def channel_params
-    params.require(:channel).permit(:name, :type, user_ids: [])
+  def message_params
+    params.require(:message).permit(:content, :receiveable_id, :receiveable_type)
   end
 end

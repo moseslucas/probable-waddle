@@ -7,11 +7,7 @@ const MessageList = (props) => {
 
   return( 
     <div className="message_list">
-      { 
-        messages.map((message)=>{ 
-          return <p>{message.content}</p>
-        })
-      }
+      <Message messages={messages} />
     </div>
   )
 }

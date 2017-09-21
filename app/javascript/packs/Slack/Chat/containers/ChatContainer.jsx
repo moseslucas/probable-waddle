@@ -50,7 +50,6 @@ export default class ChatContainer extends Component {
 
   createChannel(params) {
     const { channels } = this.state
-    console.log(params)
 
     ChannelsAPI.create({
       data: params,
@@ -81,6 +80,23 @@ export default class ChatContainer extends Component {
         }})
       },
       id: params.id
+    })
+  }
+
+  sendMessage(message){ 
+    const {currentChannel} = this.state
+    const params = { 
+      content: message,
+      receiveable_type: currentChannel.type,
+      receiveable_id: currentChannel.id
+    }
+    MessagesAPI.create({ 
+      data: params,
+      onSuccess: (response) => { 
+        this.setState({ currentChannel: { 
+          messages: currentChannel.messages.concat(response.data)
+        } })
+      }
     })
   }
 
@@ -132,7 +148,7 @@ export default class ChatContainer extends Component {
           <MessagePanel>
             <TopNav/>
             <MessageList currentChannel={currentChannel}/>
-            <MessageInput/>
+            <MessageInput sendMessage={ params => this.sendMessage(params) }/>
           </MessagePanel>
         </Wrapper>
       </div>
