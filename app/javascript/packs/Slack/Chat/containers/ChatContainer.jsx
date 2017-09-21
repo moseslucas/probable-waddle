@@ -90,12 +90,12 @@ export default class ChatContainer extends Component {
       receiveable_type: currentChannel.type,
       receiveable_id: currentChannel.id
     }
+    let newCurrentChannel = {...currentChannel}
     MessagesAPI.create({ 
       data: params,
       onSuccess: (response) => { 
-        this.setState({ currentChannel: { 
-          messages: currentChannel.messages.concat(response.data)
-        } })
+        newCurrentChannel.messages = newCurrentChannel.messages.concat(response.data)
+        this.setState({currentChannel: newCurrentChannel})
       }
     })
   }

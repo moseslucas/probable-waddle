@@ -2,9 +2,10 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 
 class MessageInput extends Component{ 
-  willSendMessage(){ 
+  willSendMessage(evt){ 
     const {sendMessage} = this.props
     const message = this.refs.message_input.value
+    evt.preventDefault()     
     this.clear()
     sendMessage(message)
   }
@@ -16,18 +17,15 @@ class MessageInput extends Component{
   render(){ 
     return( 
       <div className="message_input">
-        <div className="form-group">
-          <div className="btn-group">
-            <input 
-              ref="message_input"
-              className="form-control" />
-            <button 
-              onClick={()=>{ this.willSendMessage() }}
-              className="button button-primary message_send">
-              <i className="ion-android-send"/>
-            </button>
-          </div>
-        </div>
+        <form onSubmit={ (evt)=>{ this.willSendMessage(evt) }  }>
+          <input 
+            ref="message_input"/>
+          <button 
+            type='submit'
+            className="button button-primary message_send">
+            <i className="ion-android-send"/>
+          </button>
+        </form>
       </div>
     )
   }
