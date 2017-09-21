@@ -13,6 +13,7 @@ import TopNav from '../components/Message/TopNav'
  
 import UsersAPI from "../services/UsersAPI"
 import ChannelsAPI from "../services/ChannelsAPI"
+import MessagesAPI from "../services/MessagesAPI"
 
 export default class ChatContainer extends Component {
   constructor() {
@@ -71,11 +72,15 @@ export default class ChatContainer extends Component {
   }
 
   selectChannel(params){ 
-    this.setState({current_channel: { 
-      id: params.id,
-      type: params.type
-    }},()=>{ 
-      console.log(params)
+    MessagesAPI.fetchAll({ 
+      onSuccess: (response) => { 
+        this.setState({ current_channel: { 
+          id: params.id,
+          type: params.type,
+          messages: response.data
+        }})
+      },
+      id: params.id
     })
   }
 
