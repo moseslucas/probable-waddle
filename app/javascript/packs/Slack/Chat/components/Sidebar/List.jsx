@@ -5,14 +5,20 @@ import Item from "./Item";
 
 export default class List extends Component {
   renderUsers() {
-    const { items, icon } = this.props
+    const { items, icon, onSelectChannel } = this.props
+
 
     return items.map( (item) => {
-      console.log(item.users)
+      const channel={ 
+        id: item.id,
+        type: item.type
+      }
       return (
         <Item
+          onSelectChannel={onSelectChannel}
           icon={icon}
           key={ item.id }
+          channel = {channel}
           name={ item.username || item.name }/>
       )
     })

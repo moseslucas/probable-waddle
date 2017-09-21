@@ -19,6 +19,12 @@ export default class ChatContainer extends Component {
     super()
     this.state = { 
       users: [], 
+      current_channel: { 
+        id: '',
+        type: '',
+        messages: [],
+        users: [],
+      },
       channels: [] ,
       createPanel: { 
         channel: false,
@@ -64,6 +70,15 @@ export default class ChatContainer extends Component {
     }
   }
 
+  selectChannel(params){ 
+    this.setState({current_channel: { 
+      id: params.id,
+      type: params.type
+    }},()=>{ 
+      console.log(params)
+    })
+  }
+
   render() {
     const { users, channels, createPanel } = this.state
     const publicChannels = channels.filter( (member) => { return member.type === "PublicChannel" } )
@@ -91,11 +106,13 @@ export default class ChatContainer extends Component {
             <div>
               <List 
                 onClickCreateChannel={ () => { this.toggleCreatePanel('channel') } }
+                onSelectChannel={ (params)=>{ this.selectChannel(params) } }
                 icon={ "hashtags" }
                 type={ "Public Channels" }
                 icon='ion-pound'
                 items={ publicChannels }/>
               <List 
+                onSelectChannel={ (params)=>{ this.selectChannel(params) } }
                 onClickCreateChannel={ () => { this.toggleCreatePanel('channel') } }
                 icon={ "ion-locked" }
                 type={ "Private Channels" }

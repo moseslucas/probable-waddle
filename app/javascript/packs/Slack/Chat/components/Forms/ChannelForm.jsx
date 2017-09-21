@@ -19,6 +19,12 @@ export default class ChannelForm extends Component {
     onCreateChannel(newParams)
   }
 
+  clearForm(){ 
+    document.getElementById('channel_name').innerHtml('')
+    document.getElementById('channel_type').innerHtml('')
+    document.getElementById('channel_user_ids').innerHtml('')
+  }
+
   renderUsers() {
     const { users } = this.props
 
